@@ -653,22 +653,28 @@ def download_from_user_playlist():
 
     print("\n> SELECT A PLAYLIST BY ID")
     print("> SELECT A RANGE BY ADDING A DASH BETWEEN BOTH ID's")
+    print("> Type exit when finished")
     print("> For example, typing 10 to get one playlist or 10-20 to get\nevery playlist from 10-20 (inclusive)\n")
 
-    playlist_choices = input("ID(s): ").split("-")
+    while True:
+        playlist_choices = input("ID(s): ").split("-")
 
-    if len(playlist_choices) == 1:
-        download_playlist(playlists, playlist_choices[0])
-    else:
-        start = int(playlist_choices[0])
-        end = int(playlist_choices[1])+1
+        if playlist_choices[0].lower() == "exit":
+            print("Exiting...")
+            return
 
-        print(f"Downloading from {start} to {end}...")
+        if len(playlist_choices) == 1:
+            download_playlist(playlists, playlist_choices[0])
+        else:
+            start = int(playlist_choices[0])
+            end = int(playlist_choices[1])
 
-        for playlist in range(start, end):
-            download_playlist(playlists, playlist)
+            print(f"Downloading from {start} to {end}...")
 
-        print("\n**All playlists have been downloaded**\n")
+            for playlist in range(start, end):
+                download_playlist(playlists, playlist)
+
+            print("\n**All playlists have been downloaded**\n")
 
 
 # Core functions here
